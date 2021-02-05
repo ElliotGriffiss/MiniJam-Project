@@ -6,17 +6,26 @@ using CustomDataTypes;
 public class ColorManager : MonoBehaviour
 {
     [Header("Renderers")]
+    [SerializeField] private Camera MainCamera;
+
+    [SerializeField] private Renderer[] NeturalRenderers;
     [SerializeField] private Renderer[] RedRenderers;
-    [SerializeField] private Renderer[] BlueRenderers;
     [SerializeField] private Renderer[] GreenRenderers;
+    [SerializeField] private Renderer[] BlueRenderers;
 
     [Header("Color Data")]
+    [SerializeField] private Color CameraBackgroundRed;
+    [SerializeField] private Color CameraBackgroundGreen;
+    [SerializeField] private Color CameraBackgroundBlue;
+
     [SerializeField] private int ColorIndex;
 
     private void Start()
     {
         CharacterController.OnPlayerMove += HandlePlayerMoved;
         CharacterController.OnPlayerDeath += HandlePlayerDeath;
+
+        TurnoNeturalColor();
     }
 
     private void OnDestroy()
@@ -39,41 +48,64 @@ public class ColorManager : MonoBehaviour
 
     private void UpdateActiveColor()
     {
+        MainCamera.backgroundColor = Color.black;
+
+        foreach (Renderer ren in NeturalRenderers)
+        {
+            ren.enabled = false;
+        }
+
         foreach (Renderer ren in RedRenderers)
         {
             ren.enabled = ColorIndex == (byte)Colors.Red;
+
+            if (ColorIndex == (byte)Colors.Red)
+                MainCamera.backgroundColor = CameraBackgroundRed;
         }
 
         foreach (Renderer ren in BlueRenderers)
         {
-            ren.enabled = ColorIndex == (byte)Colors.Green;
+            ren.enabled = ColorIndex == (byte)Colors.Blue;
+
+            if (ColorIndex == (byte)Colors.Blue)
+             MainCamera.backgroundColor = CameraBackgroundBlue;
         }
 
         foreach (Renderer ren in GreenRenderers)
         {
-            ren.enabled = ColorIndex == (byte)Colors.Blue;
+            ren.enabled = ColorIndex == (byte)Colors.Green;
+
+            if (ColorIndex == (byte)Colors.Green)
+                MainCamera.backgroundColor = CameraBackgroundGreen;
         }
     }
 
     private void HandlePlayerDeath()
     {
         ColorIndex = -1;
-        TurnOnAllColors();
+        TurnoNeturalColor();
     }
 
-    private void TurnOnAllColors()
+    private void TurnoNeturalColor()
     {
+        MainCamera.backgroundColor = Color.white;
+
         foreach (Renderer ren in RedRenderers)
         {
-            ren.enabled = true;
+            ren.enabled = false;
         }
 
         foreach (Renderer ren in BlueRenderers)
         {
-            ren.enabled = true;
+            ren.enabled = false;
         }
 
         foreach (Renderer ren in GreenRenderers)
+        {
+            ren.enabled = false;
+        }
+
+        foreach (Renderer ren in NeturalRenderers)
         {
             ren.enabled = true;
         }
