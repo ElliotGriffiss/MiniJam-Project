@@ -12,14 +12,28 @@ public class EnemyController : ObjectMover
     private void OnEnable()
     {
         CharacterController.OnPlayerMove += HandlePlayerMoved;
+        CharacterController.OnPlayerDeath += HandlePlayerDeath;
 
-        MoveableObject.position = Locations[CurrentPositionIndex].position;
-        CurrentPosition = Vector3Int.FloorToInt(Locations[CurrentPositionIndex].position);
+        SpawnEnemy();
     }
 
     private void OnDisable()
     {
         CharacterController.OnPlayerMove -= HandlePlayerMoved;
+        CharacterController.OnPlayerDeath -= HandlePlayerDeath;
+    }
+
+    private void SpawnEnemy()
+    {
+        if (MovementSequence != null)
+        {
+            StopCoroutine(MovementSequence);
+            MovementSequence = null;
+        }
+
+        CurrentPositionIndex = 0;
+        CurrentPosition = Vector3Int.FloorToInt(Locations[CurrentPositionIndex].position);
+        MoveableObject.position = CurrentPosition;
     }
 
     private void HandlePlayerMoved()
@@ -60,5 +74,10 @@ public class EnemyController : ObjectMover
         CurrentPosition = newPosition;
         ObjectDirection = Direction.None;
         MovementSequence = null;
+    }
+
+    private void HandlePlayerDeath()
+    {
+        SpawnEnemy();
     }
 }

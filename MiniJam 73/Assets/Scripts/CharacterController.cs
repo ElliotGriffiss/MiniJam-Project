@@ -2,11 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using CustomDataTypes;
 
 public class CharacterController : ObjectMover
 {
     public static event Action OnPlayerMove = delegate { };
+    public static event Action OnPlayerDeath = delegate { };
+
+    [Header("Player Data")]
+    [SerializeField] private Tilemap Tilemap;
+    private Vector3Int SpawnPoint;
+
+    private void OnEnable()
+    {
+        SpawnPoint = Vector3Int.FloorToInt(MoveableObject.position);
+        CurrentPosition = SpawnPoint;
+    }
 
     private void Update()
     {
@@ -38,10 +50,59 @@ public class CharacterController : ObjectMover
 
         if (ObjectDirection != Direction.None)
         {
-            CharacterController.OnPlayerMove();
-            MovementSequence = MoveObject(GetMovementVectorFromDirection(ObjectDirection) + Vector3Int.FloorToInt(MoveableObject.position));
-            StartCoroutine(MovementSequence);
+            Vector3Int newPosition = GetMovementVectorFromDirection(ObjectDirection) + CurrentPosition;
+
+            if (CheckForCollision(newPosition))
+            {
+                ObjectDirection = Direction.None;
+            }
+            else
+            {
+                MovementSequence = MoveObject(newPosition);
+                StartCoroutine(MovementSequence);
+                CharacterController.OnPlayerMove();
+            }
         }
+    }
+
+    /// <summary>
+    /// Checks to see if the player is goiing to collide with a wall.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    /// <returns></returns>
+    private bool CheckForCollision(Vector3Int newPosition)
+    {
+        TileBase baseTile = Tilemap.GetTile(newPosition);
+        DataTile customDataTile = baseTile as DataTile;
+
+        if (customDataTile != null)
+        {
+            if (customDataTile.TileData == CustomTileData.Block_Movement)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool CheckForDeath(Vector3Int newPosition)
+    {
+        TileBase baseTile = Tilemap.GetTile(newPosition);
+        DataTile customDataTile = baseTile as DataTile;
+
+        if (customDataTile != null)
+        {
+            if (customDataTile.TileData == CustomTileData.Kill_Player)
+            {
+                CharacterController.OnPlayerDeath();
+                MoveableObject.position = SpawnPoint;
+                CurrentPosition = SpawnPoint;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     protected override IEnumerator MoveObject(Vector3Int newPosition)
@@ -62,5 +123,7 @@ public class CharacterController : ObjectMover
         CurrentPosition = newPosition;
         ObjectDirection = Direction.None;
         MovementSequence = null;
+
+        CheckForDeath(newPosition);
     }
 }
