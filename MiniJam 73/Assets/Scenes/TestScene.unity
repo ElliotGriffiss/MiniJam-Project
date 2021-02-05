@@ -289,6 +289,8 @@ MonoBehaviour:
   MoveableObject: {fileID: 435572610}
   ObjectDirection: 0
   Tilemap: {fileID: 833924905}
+  Enemies:
+  - {fileID: 47973475}
 --- !u!4 &435572610
 Transform:
   m_ObjectHideFlags: 0

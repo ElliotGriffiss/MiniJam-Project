@@ -12,6 +12,10 @@ public class CharacterController : ObjectMover
 
     [Header("Player Data")]
     [SerializeField] private Tilemap Tilemap;
+
+    [Header("Enemy References")]
+    [SerializeField] private Transform[] Enemies;
+
     private Vector3Int SpawnPoint;
 
     private void OnEnable()
@@ -30,7 +34,6 @@ public class CharacterController : ObjectMover
 
     private void CheckForPlayerInput()
     {
-        // check against input axis and direction to prevent 180 degree turns
         if (Input.GetAxis("Horizontal") < 0)
         {
             ObjectDirection = Direction.Left;
@@ -86,7 +89,32 @@ public class CharacterController : ObjectMover
         return false;
     }
 
-    private bool CheckForDeath(Vector3Int newPosition)
+    /// <summary>
+    /// Checks for death against Enemy Locations.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    /// <returns></returns>
+    private void CheckForDeathAgainstEnemies()
+    {
+        // For enemie detection.
+        foreach (Transform transform in Enemies)
+        {
+            Debug.Log(transform.position);
+            Debug.LogError(MoveableObject.position);
+
+            if (Vector3.Distance(transform.position, MoveableObject.position) < 0.1f)
+            {
+                TriggerPlayerDeath();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks for death against Tilemap Data.
+    /// </summary>
+    /// <param name="newPosition"></param>
+    /// <returns></returns>
+    private bool CheckForDeathAgainstTileData(Vector3Int newPosition)
     {
         TileBase baseTile = Tilemap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
@@ -95,14 +123,25 @@ public class CharacterController : ObjectMover
         {
             if (customDataTile.TileData == CustomTileData.Kill_Player)
             {
-                CharacterController.OnPlayerDeath();
-                MoveableObject.position = SpawnPoint;
-                CurrentPosition = SpawnPoint;
+                TriggerPlayerDeath();
                 return true;
             }
         }
 
         return false;
+    }
+
+    private void TriggerPlayerDeath()
+    {
+        if (MovementSequence != null)
+        {
+            StopCoroutine(MovementSequence);
+            MovementSequence = null;
+        }
+
+        CharacterController.OnPlayerDeath();
+        MoveableObject.position = SpawnPoint;
+        CurrentPosition = SpawnPoint;
     }
 
     protected override IEnumerator MoveObject(Vector3Int newPosition)
@@ -116,6 +155,7 @@ public class CharacterController : ObjectMover
             Vector3 DesiredPosition = Vector3.Lerp(CurrentPosition, newPosition, normalizedTime);
             // Vector3 PixelPerfectPosition = new Vector3(Utilities.RoundToTheNearestPixel(DesiredPosition.x), Utilities.RoundToTheNearestPixel(DesiredPosition.y), DesiredPosition.z);
             MoveableObject.position = DesiredPosition;
+            CheckForDeathAgainstEnemies();
 
             yield return new WaitForEndOfFrame();
         }
@@ -124,6 +164,6 @@ public class CharacterController : ObjectMover
         ObjectDirection = Direction.None;
         MovementSequence = null;
 
-        CheckForDeath(newPosition);
+        CheckForDeathAgainstTileData(newPosition);
     }
 }
