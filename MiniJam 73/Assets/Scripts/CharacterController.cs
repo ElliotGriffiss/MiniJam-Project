@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CustomDataTypes;
-using CustomEvents;
 
 public class CharacterController : ObjectMover
 {
@@ -37,11 +36,10 @@ public class CharacterController : ObjectMover
             ObjectDirection = Direction.Down;
         }
 
-        CharacterController.OnPlayerMove();
-
         if (ObjectDirection != Direction.None)
         {
-            MovementSequence = MoveObject(GetMovementVectorFromDirection(ObjectDirection) + Vector3Int.FloorToInt(Object.transform.localPosition));
+            CharacterController.OnPlayerMove();
+            MovementSequence = MoveObject(GetMovementVectorFromDirection(ObjectDirection) + Vector3Int.FloorToInt(MoveableObject.position));
             StartCoroutine(MovementSequence);
         }
     }
@@ -56,7 +54,7 @@ public class CharacterController : ObjectMover
 
             Vector3 DesiredPosition = Vector3.Lerp(CurrentPosition, newPosition, normalizedTime);
             // Vector3 PixelPerfectPosition = new Vector3(Utilities.RoundToTheNearestPixel(DesiredPosition.x), Utilities.RoundToTheNearestPixel(DesiredPosition.y), DesiredPosition.z);
-            transform.localPosition = DesiredPosition;
+            MoveableObject.position = DesiredPosition;
 
             yield return new WaitForEndOfFrame();
         }
