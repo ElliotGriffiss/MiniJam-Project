@@ -58,6 +58,6 @@ public class ObjectMover : MonoBehaviour
     /// <returns></returns>
     protected Vector3Int GetNormalizedMovementVector(Vector3Int currentPosition, Vector3 targetLocation)
     {
-        return Vector3Int.FloorToInt((currentPosition + targetLocation).normalized);
+        return Vector3Int.FloorToInt((currentPosition - targetLocation).normalized);
     }
 }

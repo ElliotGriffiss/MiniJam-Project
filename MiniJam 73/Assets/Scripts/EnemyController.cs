@@ -29,7 +29,7 @@ public class EnemyController : ObjectMover
             CurrentPositionIndex++;
 
             // ensures the enemy loops around all locations
-            if (CurrentPositionIndex > Locations.Length)
+            if (CurrentPositionIndex > Locations.Length-1)
             {
                 CurrentPositionIndex = 0;
             }
@@ -37,7 +37,7 @@ public class EnemyController : ObjectMover
 
         if (MovementSequence == null)
         {
-            MovementSequence = MoveObject (CurrentPosition +(GetNormalizedMovementVector(CurrentPosition, Locations[CurrentPositionIndex].position)));
+            MovementSequence = MoveObject (CurrentPosition -(GetNormalizedMovementVector(CurrentPosition, Locations[CurrentPositionIndex].position)));
             StartCoroutine(MovementSequence);
         }
     }
