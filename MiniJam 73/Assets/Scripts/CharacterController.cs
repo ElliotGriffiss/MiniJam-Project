@@ -11,7 +11,8 @@ public class CharacterController : ObjectMover
     public static event Action OnPlayerDeath = delegate { };
 
     [Header("Player Data")]
-    [SerializeField] private Tilemap Tilemap;
+    [SerializeField] private Tilemap Wallmap;
+    [SerializeField] private Tilemap Spikemap;
 
     [Header("Enemy References")]
     [SerializeField] private Transform[] Enemies;
@@ -75,7 +76,7 @@ public class CharacterController : ObjectMover
     /// <returns></returns>
     private bool CheckForCollision(Vector3Int newPosition)
     {
-        TileBase baseTile = Tilemap.GetTile(newPosition);
+        TileBase baseTile = Wallmap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
         if (customDataTile != null)
@@ -113,7 +114,7 @@ public class CharacterController : ObjectMover
     /// <returns></returns>
     private bool CheckForDeathAgainstTileData(Vector3Int newPosition)
     {
-        TileBase baseTile = Tilemap.GetTile(newPosition);
+        TileBase baseTile = Spikemap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
         if (customDataTile != null)

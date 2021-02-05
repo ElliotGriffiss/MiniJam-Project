@@ -15,4 +15,11 @@ namespace CustomDataTypes
         Up,
         Down,
     }
+
+    public enum Colors : int
+    {
+        Red,
+        Green,
+        Blue,
+    }
 }

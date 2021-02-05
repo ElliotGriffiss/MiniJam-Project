@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TempSpikeTile
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: 1313811212765155101, guid: 2cb37b76b6ebbbe459719f256cf7a7ad, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.07612991, a: 1}
   m_Transform:
     e00: 1
     e01: 0
