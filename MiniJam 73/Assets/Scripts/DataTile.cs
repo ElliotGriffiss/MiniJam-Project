@@ -5,7 +5,7 @@ using CustomDataTypes;
 
 [Serializable]
 [CreateAssetMenu(fileName = "New Data Tile", menuName = "Tiles/Data Tile")]
-public class DataTile : TileBase
+public class DataTile : Tile
 {
     public CustomTileData TileData;
 }
