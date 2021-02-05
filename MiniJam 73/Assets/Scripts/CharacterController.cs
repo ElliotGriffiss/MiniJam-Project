@@ -99,9 +99,6 @@ public class CharacterController : ObjectMover
         // For enemie detection.
         foreach (Transform transform in Enemies)
         {
-            Debug.Log(transform.position);
-            Debug.LogError(MoveableObject.position);
-
             if (Vector3.Distance(transform.position, MoveableObject.position) < 0.1f)
             {
                 TriggerPlayerDeath();
