@@ -12,6 +12,9 @@ namespace CustomDataTypes
         [Space]
         public Tilemap WallMap;
         public Tilemap SpikeMap;
+        public Tilemap NeutralMap;
+        [Space]
+        public Transform[] Enemies;
     }
 
     public enum CustomTileData : byte

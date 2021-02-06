@@ -11,10 +11,6 @@ public class CharacterController : ObjectMover
     public static event Action OnPlayerDeath = delegate { };
     public static event Action OnPlayerCompleteLevel = delegate { };
 
-    [Header("Player Data")]
-
-    [Header("Enemy References")]
-    [SerializeField] private Transform[] Enemies;
 
     private LevelData LevelData;
 
@@ -102,7 +98,7 @@ public class CharacterController : ObjectMover
     private void CheckForDeathAgainstEnemies()
     {
         // For enemie detection.
-        foreach (Transform transform in Enemies)
+        foreach (Transform transform in LevelData.Enemies)
         {
             if (Vector3.Distance(transform.position, MoveableObject.position) < 0.1f)
             {
@@ -121,14 +117,23 @@ public class CharacterController : ObjectMover
         TileBase baseTile = LevelData.SpikeMap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
+
         if (customDataTile != null)
         {
             if (customDataTile.TileData == CustomTileData.Kill_Player)
             {
+                Debug.LogError("Death: " + newPosition);
                 TriggerPlayerDeath();
                 return true;
             }
-            else if (customDataTile.TileData == CustomTileData.Level_End)
+        }
+
+        baseTile = LevelData.NeutralMap.GetTile(newPosition);
+        customDataTile = baseTile as DataTile;
+
+        if (customDataTile != null)
+        {
+            if (customDataTile.TileData == CustomTileData.Level_End)
             {
                 CharacterController.OnPlayerCompleteLevel();
             }
