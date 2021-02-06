@@ -1469,7 +1469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &527992360
 Transform:
   m_ObjectHideFlags: 0
@@ -3522,7 +3522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1459943890
 Transform:
   m_ObjectHideFlags: 0
@@ -4256,7 +4256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 435572609}
-  LevelIndex: 0
+  LevelIndex: 1
   LevelData:
   - LevelParent: {fileID: 343835152}
     SpawnPoint: {x: -6, y: 2, z: 0}
