@@ -14,6 +14,9 @@ TextureImporter:
   - first:
       213: 1313811212765155101
     second: TempArt_3
+  - first:
+      213: 8237608271785655463
+    second: TempArt_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -206,6 +209,27 @@ TextureImporter:
       bones: []
       spriteID: d1fcace46589b3210800000000000000
       internalID: 1313811212765155101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TempArt_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ac7a96141dd15270800000000000000
+      internalID: 8237608271785655463
       vertices: []
       indices: 
       edges: []

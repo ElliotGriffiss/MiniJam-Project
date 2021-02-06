@@ -6,7 +6,7 @@ using CustomDataTypes;
 public class ColorManager : MonoBehaviour
 {
     [Header("Renderers")]
-    [SerializeField] private Camera MainCamera;
+    [SerializeField] private SpriteRenderer[] BackgroundSprites;
 
     [SerializeField] private Renderer[] NeturalRenderers;
     [SerializeField] private Renderer[] RedRenderers;
@@ -14,21 +14,21 @@ public class ColorManager : MonoBehaviour
     [SerializeField] private Renderer[] BlueRenderers;
 
     [Header("Color Data")]
-    [SerializeField] private Color CameraBackgroundRed;
-    [SerializeField] private Color CameraBackgroundGreen;
-    [SerializeField] private Color CameraBackgroundBlue;
+    [SerializeField] private Color BackgroundRed;
+    [SerializeField] private Color BackgroundGreen;
+    [SerializeField] private Color BackgroundBlue;
 
     [SerializeField] private int ColorIndex;
 
-    private void Start()
+    private void OnEnable()
     {
         CharacterController.OnPlayerMove += HandlePlayerMoved;
         CharacterController.OnPlayerDeath += HandlePlayerDeath;
 
-        TurnoNeturalColor();
+        TurnOnNeturalColor();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         CharacterController.OnPlayerMove -= HandlePlayerMoved;
         CharacterController.OnPlayerDeath -= HandlePlayerDeath;
@@ -48,7 +48,7 @@ public class ColorManager : MonoBehaviour
 
     private void UpdateActiveColor()
     {
-        MainCamera.backgroundColor = Color.black;
+        ChangeBackgroundColor(Color.black);
 
         foreach (Renderer ren in NeturalRenderers)
         {
@@ -60,7 +60,7 @@ public class ColorManager : MonoBehaviour
             ren.enabled = ColorIndex == (byte)Colors.Red;
 
             if (ColorIndex == (byte)Colors.Red)
-                MainCamera.backgroundColor = CameraBackgroundRed;
+                ChangeBackgroundColor(BackgroundRed);
         }
 
         foreach (Renderer ren in BlueRenderers)
@@ -68,7 +68,7 @@ public class ColorManager : MonoBehaviour
             ren.enabled = ColorIndex == (byte)Colors.Blue;
 
             if (ColorIndex == (byte)Colors.Blue)
-             MainCamera.backgroundColor = CameraBackgroundBlue;
+            ChangeBackgroundColor(BackgroundBlue);
         }
 
         foreach (Renderer ren in GreenRenderers)
@@ -76,19 +76,19 @@ public class ColorManager : MonoBehaviour
             ren.enabled = ColorIndex == (byte)Colors.Green;
 
             if (ColorIndex == (byte)Colors.Green)
-                MainCamera.backgroundColor = CameraBackgroundGreen;
+                ChangeBackgroundColor(BackgroundGreen);
         }
     }
 
     private void HandlePlayerDeath()
     {
         ColorIndex = -1;
-        TurnoNeturalColor();
+        TurnOnNeturalColor();
     }
 
-    private void TurnoNeturalColor()
+    private void TurnOnNeturalColor()
     {
-        MainCamera.backgroundColor = Color.white;
+        ChangeBackgroundColor(Color.white);
 
         foreach (Renderer ren in RedRenderers)
         {
@@ -108,6 +108,14 @@ public class ColorManager : MonoBehaviour
         foreach (Renderer ren in NeturalRenderers)
         {
             ren.enabled = true;
+        }
+    }
+
+    private void ChangeBackgroundColor(Color newColor)
+    {
+        foreach (SpriteRenderer ren in BackgroundSprites)
+        {
+            ren.color = newColor;
         }
     }
 }

@@ -9,20 +9,24 @@ public class CharacterController : ObjectMover
 {
     public static event Action OnPlayerMove = delegate { };
     public static event Action OnPlayerDeath = delegate { };
+    public static event Action OnPlayerCompleteLevel = delegate { };
 
     [Header("Player Data")]
-    [SerializeField] private Tilemap Wallmap;
-    [SerializeField] private Tilemap Spikemap;
 
     [Header("Enemy References")]
     [SerializeField] private Transform[] Enemies;
 
-    private Vector3Int SpawnPoint;
+    private LevelData LevelData;
 
-    private void OnEnable()
+    public void UpdateCurrentLevel(LevelData levelData)
     {
-        SpawnPoint = Vector3Int.FloorToInt(MoveableObject.position);
-        CurrentPosition = SpawnPoint;
+        LevelData = levelData;
+
+        CurrentPosition = LevelData.SpawnPoint;
+        MoveableObject.position = CurrentPosition;
+
+        // This just makes sure everything is reset properly when a level loads.
+        CharacterController.OnPlayerDeath();
     }
 
     private void Update()
@@ -76,7 +80,7 @@ public class CharacterController : ObjectMover
     /// <returns></returns>
     private bool CheckForCollision(Vector3Int newPosition)
     {
-        TileBase baseTile = Wallmap.GetTile(newPosition);
+        TileBase baseTile = LevelData.WallMap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
         if (customDataTile != null)
@@ -112,9 +116,9 @@ public class CharacterController : ObjectMover
     /// </summary>
     /// <param name="newPosition"></param>
     /// <returns></returns>
-    private bool CheckForDeathAgainstTileData(Vector3Int newPosition)
+    private bool CheckForCollionAgainstTileData(Vector3Int newPosition)
     {
-        TileBase baseTile = Spikemap.GetTile(newPosition);
+        TileBase baseTile = LevelData.SpikeMap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
         if (customDataTile != null)
@@ -123,6 +127,10 @@ public class CharacterController : ObjectMover
             {
                 TriggerPlayerDeath();
                 return true;
+            }
+            else if (customDataTile.TileData == CustomTileData.Level_End)
+            {
+                CharacterController.OnPlayerCompleteLevel();
             }
         }
 
@@ -138,8 +146,8 @@ public class CharacterController : ObjectMover
         }
 
         CharacterController.OnPlayerDeath();
-        MoveableObject.position = SpawnPoint;
-        CurrentPosition = SpawnPoint;
+        CurrentPosition = LevelData.SpawnPoint;
+        MoveableObject.position = CurrentPosition;
     }
 
     protected override IEnumerator MoveObject(Vector3Int newPosition)
@@ -162,6 +170,6 @@ public class CharacterController : ObjectMover
         ObjectDirection = Direction.None;
         MovementSequence = null;
 
-        CheckForDeathAgainstTileData(newPosition);
+        CheckForCollionAgainstTileData(newPosition);
     }
 }
