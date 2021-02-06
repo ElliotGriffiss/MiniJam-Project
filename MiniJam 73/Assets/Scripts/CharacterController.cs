@@ -117,12 +117,10 @@ public class CharacterController : ObjectMover
         TileBase baseTile = LevelData.SpikeMap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
-
         if (customDataTile != null)
         {
             if (customDataTile.TileData == CustomTileData.Kill_Player)
             {
-                Debug.LogError("Death: " + newPosition);
                 TriggerPlayerDeath();
                 return true;
             }
@@ -173,8 +171,8 @@ public class CharacterController : ObjectMover
 
         CurrentPosition = newPosition;
         ObjectDirection = Direction.None;
-        MovementSequence = null;
 
         CheckForCollionAgainstTileData(newPosition);
+        MovementSequence = null;
     }
 }
