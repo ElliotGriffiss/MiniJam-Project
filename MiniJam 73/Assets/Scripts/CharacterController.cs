@@ -115,7 +115,7 @@ public class CharacterController : ObjectMover
     /// <returns></returns>
     private bool CheckForCollionAgainstTileData(Vector3Int newPosition)
     {
-        TileBase baseTile = LevelData.SpikeMap.GetTile(newPosition);
+        TileBase baseTile = LevelData.NeutralMap.GetTile(newPosition);
         DataTile customDataTile = baseTile as DataTile;
 
         if (customDataTile != null)
@@ -125,14 +125,7 @@ public class CharacterController : ObjectMover
                 TriggerPlayerDeath();
                 return true;
             }
-        }
-
-        baseTile = LevelData.NeutralMap.GetTile(newPosition);
-        customDataTile = baseTile as DataTile;
-
-        if (customDataTile != null)
-        {
-            if (customDataTile.TileData == CustomTileData.Set_Neutral)
+            else if (customDataTile.TileData == CustomTileData.Set_Neutral)
             {
                 CharacterController.OnNeutralTriggerActivated();
             }
