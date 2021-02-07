@@ -21,6 +21,7 @@ namespace CustomDataTypes
     {
         Block_Movement,
         Kill_Player,
+        Set_Neutral,
         Level_End,
     }
 

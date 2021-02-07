@@ -23,6 +23,7 @@ public class ColorManager : MonoBehaviour
     private void OnEnable()
     {
         CharacterController.OnPlayerMove += HandlePlayerMoved;
+        CharacterController.OnNeutralTriggerActivated += HandleNeutralTrigger;
         CharacterController.OnPlayerDeath += HandlePlayerDeath;
 
         TurnOnNeturalColor();
@@ -31,6 +32,7 @@ public class ColorManager : MonoBehaviour
     private void OnDisable()
     {
         CharacterController.OnPlayerMove -= HandlePlayerMoved;
+        CharacterController.OnNeutralTriggerActivated -= HandleNeutralTrigger;
         CharacterController.OnPlayerDeath -= HandlePlayerDeath;
     }
 
@@ -78,6 +80,11 @@ public class ColorManager : MonoBehaviour
             if (ColorIndex == (byte)Colors.Green)
                 ChangeBackgroundColor(BackgroundGreen);
         }
+    }
+
+    private void HandleNeutralTrigger()
+    {
+        TurnOnNeturalColor();
     }
 
     private void HandlePlayerDeath()

@@ -9,6 +9,7 @@ public class CharacterController : ObjectMover
 {
     public static event Action OnPlayerMove = delegate { };
     public static event Action OnPlayerDeath = delegate { };
+    public static event Action OnNeutralTriggerActivated = delegate { };
     public static event Action OnPlayerCompleteLevel = delegate { };
 
 
@@ -131,7 +132,11 @@ public class CharacterController : ObjectMover
 
         if (customDataTile != null)
         {
-            if (customDataTile.TileData == CustomTileData.Level_End)
+            if (customDataTile.TileData == CustomTileData.Set_Neutral)
+            {
+                CharacterController.OnNeutralTriggerActivated();
+            }
+            else if (customDataTile.TileData == CustomTileData.Level_End)
             {
                 CharacterController.OnPlayerCompleteLevel();
             }
