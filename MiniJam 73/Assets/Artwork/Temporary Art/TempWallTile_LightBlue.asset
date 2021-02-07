@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TempWallTile_LightBlue
   m_EditorClassIdentifier: 
   m_Sprite: {fileID: -2343853812802021610, guid: 2cb37b76b6ebbbe459719f256cf7a7ad, type: 3}
-  m_Color: {r: 0.4532307, g: 0.990566, b: 0.49326748, a: 1}
+  m_Color: {r: 0.4625756, g: 0.6486015, b: 0.990566, a: 1}
   m_Transform:
     e00: 1
     e01: 0

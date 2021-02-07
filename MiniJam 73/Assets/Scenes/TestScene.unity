@@ -1339,7 +1339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &343835153
 Transform:
   m_ObjectHideFlags: 0
@@ -4222,9 +4222,9 @@ MonoBehaviour:
   - {fileID: 71965783}
   - {fileID: 570875234}
   GreenRenderers:
-  - {fileID: 2080162004}
-  BlueRenderers:
   - {fileID: 689951678}
+  BlueRenderers:
+  - {fileID: 2080162004}
   BackgroundRed: {r: 1, g: 0.49411765, b: 0.49411765, a: 1}
   BackgroundGreen: {r: 0.49411765, g: 1, b: 0.5568628, a: 1}
   BackgroundBlue: {r: 0.49411765, g: 0.6117647, b: 1, a: 1}
@@ -5394,11 +5394,11 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - m_RefCount: 16
-    m_Data: {r: 0.4532307, g: 0.990566, b: 0.49326748, a: 1}
+    m_Data: {r: 0.4625756, g: 0.6486015, b: 0.990566, a: 1}
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}
   - m_RefCount: 16
-    m_Data: {r: 0, g: 1, b: 0.07450981, a: 1}
+    m_Data: {r: 0, g: 0.050397873, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -5481,9 +5481,9 @@ MonoBehaviour:
   - {fileID: 1001080378}
   - {fileID: 1044762597}
   GreenRenderers:
-  - {fileID: 432168381}
-  BlueRenderers:
   - {fileID: 1422353088}
+  BlueRenderers:
+  - {fileID: 432168381}
   BackgroundRed: {r: 1, g: 0.49411765, b: 0.49411765, a: 1}
   BackgroundGreen: {r: 0.49411765, g: 1, b: 0.5568628, a: 1}
   BackgroundBlue: {r: 0.49411765, g: 0.6117647, b: 1, a: 1}
@@ -10084,9 +10084,9 @@ MonoBehaviour:
   - {fileID: 1551930567}
   - {fileID: 1850570662}
   GreenRenderers:
-  - {fileID: 799307667}
-  BlueRenderers:
   - {fileID: 1763343106}
+  BlueRenderers:
+  - {fileID: 799307667}
   BackgroundRed: {r: 1, g: 0.49411765, b: 0.49411765, a: 1}
   BackgroundGreen: {r: 0.49411765, g: 1, b: 0.5568628, a: 1}
   BackgroundBlue: {r: 0.49411765, g: 0.6117647, b: 1, a: 1}
@@ -10358,7 +10358,7 @@ Tilemap:
       m_TileIndex: 1
       m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
+      m_TileColorIndex: 2
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
@@ -10368,7 +10368,7 @@ Tilemap:
       m_TileIndex: 1
       m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
+      m_TileColorIndex: 2
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
@@ -10378,7 +10378,7 @@ Tilemap:
       m_TileIndex: 1
       m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
+      m_TileColorIndex: 2
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
@@ -10388,7 +10388,7 @@ Tilemap:
       m_TileIndex: 1
       m_TileSpriteIndex: 1
       m_TileMatrixIndex: 0
-      m_TileColorIndex: 1
+      m_TileColorIndex: 2
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
@@ -10425,10 +10425,10 @@ Tilemap:
   m_TileColorArray:
   - m_RefCount: 0
     m_Data: {r: 0, g: 0, b: 0, a: 0}
-  - m_RefCount: 4
-    m_Data: {r: 0, g: 0.2208755, b: 1, a: 1}
   - m_RefCount: 0
-    m_Data: {r: 1.3957e-40, g: 1.3957e-40, b: 1.3957e-40, a: 1.3957e-40}
+    m_Data: {r: 0, g: 0, b: 0, a: 0}
+  - m_RefCount: 4
+    m_Data: {r: 0, g: 1, b: 0.16457057, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11428,9 +11428,11 @@ Tilemap:
       e33: 1
   m_TileColorArray:
   - m_RefCount: 32
-    m_Data: {r: 0, g: 1, b: 0.07450981, a: 1}
+    m_Data: {r: 0, g: 0.050397873, b: 1, a: 1}
   - m_RefCount: 2
     m_Data: {r: 1, g: 1, b: 1, a: 1}
+  - m_RefCount: 0
+    m_Data: {r: 0, g: 0, b: 0, a: 0}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -11782,9 +11784,9 @@ MonoBehaviour:
   - {fileID: 47973476}
   - {fileID: 934783525}
   GreenRenderers:
-  - {fileID: 833924904}
-  BlueRenderers:
   - {fileID: 1745028670}
+  BlueRenderers:
+  - {fileID: 833924904}
   BackgroundRed: {r: 1, g: 0.49411765, b: 0.49411765, a: 1}
   BackgroundGreen: {r: 0.49411765, g: 1, b: 0.5568628, a: 1}
   BackgroundBlue: {r: 0.49411765, g: 0.6117647, b: 1, a: 1}
