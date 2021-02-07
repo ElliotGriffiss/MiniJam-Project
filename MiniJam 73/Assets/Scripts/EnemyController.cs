@@ -5,6 +5,9 @@ using CustomDataTypes;
 
 public class EnemyController : ObjectMover
 {
+    [Header("Enemy Reference")]
+    [SerializeField] private SpriteRenderer Sprite;
+
     [Header("Enemy Data")]
     [SerializeField] private int CurrentPositionIndex;
     [SerializeField] private Transform[] Locations;
@@ -31,6 +34,7 @@ public class EnemyController : ObjectMover
             MovementSequence = null;
         }
 
+        Sprite.flipX = false;
         CurrentPositionIndex = 0;
         CurrentPosition = Vector3Int.FloorToInt(Locations[CurrentPositionIndex].position);
         MoveableObject.position = CurrentPosition;
@@ -51,7 +55,18 @@ public class EnemyController : ObjectMover
 
         if (MovementSequence == null)
         {
-            MovementSequence = MoveObject (CurrentPosition -(GetNormalizedMovementVector(CurrentPosition, Locations[CurrentPositionIndex].position)));
+            Vector3Int normalizedMovementVector = GetNormalizedMovementVector(CurrentPosition, Locations[CurrentPositionIndex].position);
+
+            if (normalizedMovementVector == Vector3Int.right)
+            {
+                Sprite.flipX = false;
+            }
+            else if (normalizedMovementVector == Vector3Int.left)
+            {
+                Sprite.flipX = true;
+            }
+
+            MovementSequence = MoveObject (CurrentPosition - normalizedMovementVector);
             StartCoroutine(MovementSequence);
         }
     }
@@ -65,7 +80,6 @@ public class EnemyController : ObjectMover
             normalizedTime += Time.deltaTime / MovementDuration;
 
             Vector3 DesiredPosition = Vector3.Lerp(CurrentPosition, newPosition, normalizedTime);
-            // Vector3 PixelPerfectPosition = new Vector3(Utilities.RoundToTheNearestPixel(DesiredPosition.x), Utilities.RoundToTheNearestPixel(DesiredPosition.y), DesiredPosition.z);
             MoveableObject.position = DesiredPosition;
 
             yield return new WaitForEndOfFrame();
