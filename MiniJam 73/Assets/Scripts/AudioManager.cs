@@ -30,7 +30,8 @@ public class AudioManager : MonoBehaviour
     {
         CharacterController.OnPlayerMove += CycleAudio;
         CharacterController.OnNeutralTriggerActivated += PlayAllAudio;
-        CharacterController.OnPlayerDeath += PlayerDeathAudio;
+        CharacterController.OnPlayerDeathAnimationTriggered += PlayerDeathAudio;
+        CharacterController.OnPlayerDeath += PlayerDeathResetAudio;
         CharacterController.OnPlayerCompleteLevel += PlayLevelCompleteMusic;
         musicIndex = -1;
         shouldPlaySwitchSound = true;
@@ -95,6 +96,7 @@ public class AudioManager : MonoBehaviour
     {
         // Reset flags
         musicIndex = -1;
+        soundEffectLightSwitch.Play();
         shouldPlaySwitchSound = true;
 
         // Unmute music
@@ -117,8 +119,12 @@ public class AudioManager : MonoBehaviour
 
     private void PlayerDeathAudio()
     {
-        PlayAllAudio();
         soundEffectDeath.Play();
+    }
+
+    private void PlayerDeathResetAudio()
+    {
+        PlayAllAudio();
     }
 
     public void ChangeMusicAudioLevel(float newLevel)
@@ -142,7 +148,8 @@ public class AudioManager : MonoBehaviour
         // Clean up event connections
         CharacterController.OnPlayerMove -= CycleAudio; 
         CharacterController.OnNeutralTriggerActivated -= PlayAllAudio;
+        CharacterController.OnPlayerDeathAnimationTriggered -= PlayerDeathAudio;
         CharacterController.OnPlayerDeath -= PlayerDeathAudio;
-        CharacterController.OnPlayerCompleteLevel -= PlayLevelCompleteMusic;
+        CharacterController.OnPlayerCompleteLevel -= PlayerDeathResetAudio;
     }
 }

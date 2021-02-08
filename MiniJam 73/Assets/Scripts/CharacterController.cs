@@ -8,6 +8,7 @@ using CustomDataTypes;
 public class CharacterController : ObjectMover
 {
     public static event Action OnPlayerMove = delegate { };
+    public static event Action OnPlayerDeathAnimationTriggered = delegate { };
     public static event Action OnPlayerDeath = delegate { };
     public static event Action OnNeutralTriggerActivated = delegate { };
     public static event Action OnPlayerCompleteLevel = delegate { };
@@ -169,6 +170,7 @@ public class CharacterController : ObjectMover
         PlayerHasControl = false;
         ObjectDirection = Direction.None;
         PlayerAnimator.SetBool("PlayerDead", true);
+        CharacterController.OnPlayerDeathAnimationTriggered();
         yield return new WaitForSeconds(1f);
 
         CharacterController.OnPlayerDeath();
