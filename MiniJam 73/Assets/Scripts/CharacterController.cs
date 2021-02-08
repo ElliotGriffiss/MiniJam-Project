@@ -12,8 +12,12 @@ public class CharacterController : ObjectMover
     public static event Action OnNeutralTriggerActivated = delegate { };
     public static event Action OnPlayerCompleteLevel = delegate { };
 
+    [Header("Player References")]
+    [SerializeField] private Animator PlayerAnimator;
 
     private LevelData LevelData;
+    private IEnumerator DeathSequence;
+    private bool PlayerHasControl = false;
 
     public void UpdateCurrentLevel(LevelData levelData)
     {
@@ -21,6 +25,8 @@ public class CharacterController : ObjectMover
 
         CurrentPosition = LevelData.SpawnPoint;
         MoveableObject.position = CurrentPosition;
+        PlayerAnimator.SetBool("PlayerDead", false);
+        PlayerHasControl = true;
 
         // This just makes sure everything is reset properly when a level loads.
         CharacterController.OnPlayerDeath();
@@ -28,7 +34,7 @@ public class CharacterController : ObjectMover
 
     private void Update()
     {
-        if (MovementSequence == null)
+        if (MovementSequence == null && PlayerHasControl)
         {
             CheckForPlayerInput();
         }
@@ -146,9 +152,26 @@ public class CharacterController : ObjectMover
             MovementSequence = null;
         }
 
+        if (DeathSequence == null)
+        {
+            DeathSequence = RunDeathSequence();
+            StartCoroutine(DeathSequence);
+        }
+    }
+
+    private IEnumerator RunDeathSequence()
+    {
+        PlayerHasControl = false;
+        ObjectDirection = Direction.None;
+        PlayerAnimator.SetBool("PlayerDead", true);
+        yield return new WaitForSeconds(1f);
+
         CharacterController.OnPlayerDeath();
         CurrentPosition = LevelData.SpawnPoint;
         MoveableObject.position = CurrentPosition;
+        PlayerAnimator.SetBool("PlayerDead", false);
+        DeathSequence = null;
+        PlayerHasControl = true;
     }
 
     protected override IEnumerator MoveObject(Vector3Int newPosition)
@@ -160,7 +183,6 @@ public class CharacterController : ObjectMover
             normalizedTime += Time.deltaTime / MovementDuration;
 
             Vector3 DesiredPosition = Vector3.Lerp(CurrentPosition, newPosition, normalizedTime);
-            // Vector3 PixelPerfectPosition = new Vector3(Utilities.RoundToTheNearestPixel(DesiredPosition.x), Utilities.RoundToTheNearestPixel(DesiredPosition.y), DesiredPosition.z);
             MoveableObject.position = DesiredPosition;
             CheckForDeathAgainstEnemies();
 
