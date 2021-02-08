@@ -6,6 +6,7 @@ using CustomDataTypes;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private CharacterController Character;
+    [SerializeField] private GameObject EndingSlide;
 
     [SerializeField] private byte LevelIndex = 0;
     [SerializeField] private LevelData[] LevelData;
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
         if (LevelIndex > LevelData.Length - 1)
         {
             Debug.Log("Game Completed");
+            EndingSlide.SetActive(true);
         }
         else
         {

@@ -6,6 +6,8 @@ using CustomDataTypes;
 public class ColorManager : MonoBehaviour
 {
     [Header("Renderers")]
+    [SerializeField] private Renderer WhiteText;
+
     [SerializeField] private SpriteRenderer[] BackgroundSprites;
 
     [SerializeField] private Renderer[] NeturalRenderers;
@@ -85,6 +87,11 @@ public class ColorManager : MonoBehaviour
     private void HandleNeutralTrigger()
     {
         TurnOnNeturalColor();
+
+        if (WhiteText != null)
+        {
+            WhiteText.enabled = true;
+        }
     }
 
     private void HandlePlayerDeath()
@@ -115,6 +122,11 @@ public class ColorManager : MonoBehaviour
         foreach (Renderer ren in NeturalRenderers)
         {
             ren.enabled = true;
+        }
+
+        if (WhiteText != null)
+        {
+            WhiteText.enabled = false;
         }
     }
 

@@ -23,6 +23,7 @@ namespace CustomDataTypes
         Kill_Player,
         Set_Neutral,
         Level_End,
+        Display_White_Text,
     }
 
     public enum Direction : byte

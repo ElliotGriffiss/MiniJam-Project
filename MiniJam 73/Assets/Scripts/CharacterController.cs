@@ -139,6 +139,11 @@ public class CharacterController : ObjectMover
             {
                 CharacterController.OnPlayerCompleteLevel();
             }
+            else if (customDataTile.TileData == CustomTileData.Display_White_Text)
+            {
+                PlayerHasControl = false;
+                StartCoroutine(DelayNextLevel());
+            }
         }
 
         return false;
@@ -172,6 +177,15 @@ public class CharacterController : ObjectMover
         PlayerAnimator.SetBool("PlayerDead", false);
         DeathSequence = null;
         PlayerHasControl = true;
+    }
+
+    private IEnumerator DelayNextLevel()
+    {
+        Debug.Log("Delay");
+        CharacterController.OnNeutralTriggerActivated();
+        yield return new WaitForSeconds(2f);
+        CharacterController.OnPlayerCompleteLevel();
+
     }
 
     protected override IEnumerator MoveObject(Vector3Int newPosition)
