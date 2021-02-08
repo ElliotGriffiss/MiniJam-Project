@@ -6,6 +6,7 @@ using CustomDataTypes;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private CharacterController Character;
+    [SerializeField] private AudioManager AudioManager;
     [SerializeField] private GameObject EndingSlide;
 
     [SerializeField] private byte LevelIndex = 0;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Game Completed");
             EndingSlide.SetActive(true);
+            AudioManager.PlayEndingTheme();
         }
         else
         {

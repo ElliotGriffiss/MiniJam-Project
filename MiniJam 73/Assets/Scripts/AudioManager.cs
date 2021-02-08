@@ -11,6 +11,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource levelMusicDrums;
     [SerializeField] private AudioSource levelMusicBass;
     [SerializeField] private AudioSource levelMusicSynth;
+    [SerializeField] private AudioSource EndingTheme;
     [SerializeField] private AudioSource levelComplete;
 
     [Header("Sound Effect References")]
@@ -102,6 +103,13 @@ public class AudioManager : MonoBehaviour
         levelMusicSynth.mute = false;
     }
 
+    private void StopAllAudio()
+    {
+        levelMusicDrums.mute = true;
+        levelMusicBass.mute = true;
+        levelMusicSynth.mute = true;
+    }
+
     private void PlayLevelCompleteMusic()
     {
         levelComplete.Play();
@@ -121,6 +129,12 @@ public class AudioManager : MonoBehaviour
     public void ChangeSoundEffectAudioLevel(float newLevel)
     {
         audioMixer.SetFloat("soundEffectLevel", newLevel);
+    }
+
+    public void PlayEndingTheme()
+    {
+        StopAllAudio();
+        EndingTheme.Play();
     }
 
     void OnDestroy()

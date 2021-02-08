@@ -3387,6 +3387,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 280163492230020184, guid: caad81d1bdeba0a4a91190ad9f083d24, type: 3}
+      propertyPath: Loop
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 280163492230020184, guid: caad81d1bdeba0a4a91190ad9f083d24, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5428368845180568738, guid: caad81d1bdeba0a4a91190ad9f083d24, type: 3}
       propertyPath: m_Name
       value: AudioSources
@@ -3465,6 +3473,11 @@ AudioSource:
 --- !u!82 &451561098 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 5428368845111620076, guid: caad81d1bdeba0a4a91190ad9f083d24, type: 3}
+  m_PrefabInstance: {fileID: 451561092}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &451561099 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 280163492230020184, guid: caad81d1bdeba0a4a91190ad9f083d24, type: 3}
   m_PrefabInstance: {fileID: 451561092}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &478134051
@@ -13210,6 +13223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 435572609}
+  AudioManager: {fileID: 1725944282}
   EndingSlide: {fileID: 25512024}
   LevelIndex: 0
   LevelData:
@@ -14274,6 +14288,10 @@ PrefabInstance:
       value: AudioManager
       objectReference: {fileID: 0}
     - target: {fileID: 2667727472124772331, guid: b3113e957ce080b46a6909fc1063f439, type: 3}
+      propertyPath: EndingTheme
+      value: 
+      objectReference: {fileID: 451561099}
+    - target: {fileID: 2667727472124772331, guid: b3113e957ce080b46a6909fc1063f439, type: 3}
       propertyPath: levelComplete
       value: 
       objectReference: {fileID: 451561095}
@@ -14299,6 +14317,17 @@ PrefabInstance:
       objectReference: {fileID: 451561093}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3113e957ce080b46a6909fc1063f439, type: 3}
+--- !u!114 &1725944282 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2667727472124772331, guid: b3113e957ce080b46a6909fc1063f439, type: 3}
+  m_PrefabInstance: {fileID: 1725944281}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cfa409e1d96daf43855908902fc0b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1741074421
 GameObject:
   m_ObjectHideFlags: 0
